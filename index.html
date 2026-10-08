@@ -294,7 +294,7 @@
     .hero .container { padding-left: 24px; padding-right: 24px; max-width: 100%; z-index: 4; }
     .hero h1 { white-space: normal; } 
     .f-grid, .cat-grid { grid-template-columns: 1fr; }
-    .hero-card-form { padding: 24px 20px; max-height: none; overflow: visible; }
+    .hero .hero-card-form { padding: 24px 20px; max-height: none; overflow: visible; }
   }
 
   /* particles */
@@ -923,7 +923,7 @@
   .modal-close-btn { position: absolute; top: -16px; right: -16px; background: rgba(10, 25, 48, 0.9); border: 1px solid rgba(255,255,255,0.2); color: var(--white); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; z-index: 10; transition: background 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .modal-close-btn:hover { background: rgba(255,255,255,0.2); }
   .eligibility-modal-overlay .hero-card-form { max-height: 85vh; box-shadow: 0 40px 100px rgba(0,0,0,0.8); margin: 0; }
-  @media (max-width: 768px) { .eligibility-modal-overlay { padding: 16px; } .eligibility-modal-overlay .hero-card-form { padding: 24px; max-height: 80vh; } .modal-close-btn { top: -10px; right: -10px; width: 36px; height: 36px; font-size: 16px; } }
+  @media (max-width: 768px) { .eligibility-modal-overlay { padding: 16px; } .eligibility-modal-overlay .hero-card-form { padding: 24px; max-height: 80vh; max-height: 80dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; } .modal-close-btn { top: -10px; right: -10px; width: 36px; height: 36px; font-size: 16px; } }
 
   /* ---------- FOOTER (Frosted Parallax) ---------- */
   footer{ background:rgba(7,18,36,0.90); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding:60px 0 30px; color:rgba(255,255,255,0.55); }

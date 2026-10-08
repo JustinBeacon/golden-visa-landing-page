@@ -159,7 +159,7 @@
   header{
     position:fixed;top:0;left:0;right:0;z-index:200;
     background:rgba(10,25,48,0.86);
-    backdrop-filter:blur(10px);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
     transition:background .3s ease;
   }
@@ -200,13 +200,13 @@
 
   /* ---------- FIXED HERO SECTION ---------- */
   .hero{
-    position: relative; top: 0; left: 0; width: 100%; min-height: 100vh;
+    position: relative; top: 0; left: 0; width: 100%; min-height: 100vh; min-height: 100svh;
     z-index: 1; display:flex; align-items:center; padding:100px 0 60px; overflow:hidden;
   }
   .main-content-wrapper { position: relative; z-index: 10; background: transparent; }
-  .hero-video { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover; z-index: -2; }
+  .hero-video { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh; object-fit: cover; z-index: -2; }
   .hero-overlay-left {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh; height: 100lvh;
     background: linear-gradient(90deg, rgba(7, 18, 36, 0.98) 0%, rgba(10, 25, 48, 0.88) 35%, rgba(10, 25, 48, 0.45) 65%, transparent 92%);
     z-index: -1; pointer-events: none;
   }
@@ -289,11 +289,12 @@
   @media (max-width: 1024px) { .hero-image-overlay { right: 0%; height: 75vh; } }
   @media (max-width: 768px) {
     .hero { align-items: flex-end; padding-bottom: 40px; }
-    .hero-image-overlay { left: auto; right: -25%; height: 55vh; z-index: 1; opacity: 0.35; bottom: 0; transform: none; }
+    .hero-image-overlay { display: none; }
+    .hero-overlay-left { background: linear-gradient(180deg, rgba(7,18,36,0.92) 0%, rgba(10,25,48,0.78) 55%, rgba(10,25,48,0.88) 100%); }
     .hero .container { padding-left: 24px; padding-right: 24px; max-width: 100%; z-index: 4; }
     .hero h1 { white-space: normal; } 
     .f-grid, .cat-grid { grid-template-columns: 1fr; }
-    .hero-card-form { padding: 24px; max-height: 65vh; }
+    .hero-card-form { padding: 24px 20px; max-height: none; overflow: visible; }
   }
 
   /* particles */
@@ -878,6 +879,10 @@
   .premium-faq-item.open .premium-faq-a-inner { padding-bottom: 22px; }
   
   @media (max-width: 960px) { .faq-layout { grid-template-columns: 1fr; gap: 48px; } .faq-header-col { position: relative; top: 0; } .faq-header-col p { max-width: 100%; } }
+  @media (max-width: 560px) {
+    .faq-tabs { display: grid; grid-template-columns: repeat(3, 1fr); flex-wrap: nowrap; width: 100%; gap: 2px; padding: 5px; border-radius: 28px; }
+    .faq-tab-btn { padding: 11px 4px; font-size: 12px; line-height: 1.25; border-radius: 24px; text-align: center; }
+  }
   @media (max-width: 560px) { .premium-faq-q { font-size: 15px; padding: 18px 16px; gap: 12px; } .premium-faq-a-inner { padding: 0 16px 0 16px; } .premium-faq-item.open .premium-faq-a-inner { padding-bottom: 20px; } }
 
   /* ---------- HIGH-CONVERSION CTA SECTION ---------- */

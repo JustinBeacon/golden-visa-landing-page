@@ -58,6 +58,15 @@
 }
 </script>
 
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3KVYL80FD3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3KVYL80FD3');
+</script>
+
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2118,6 +2127,7 @@ function sendLead(lead){
     }, lead))
   }).then(res => {
     if (!res.ok) { lastLeadKeys.delete(key); leadSends--; }   // allow a retry if it failed
+    else if (typeof gtag === 'function') { gtag('event', 'generate_lead', { form_name: 'eligibility_step1' }); }
   }).catch(() => { lastLeadKeys.delete(key); leadSends--; });
 }
 
@@ -2166,6 +2176,7 @@ document.getElementById('eligForm').addEventListener('submit', (e)=>{
   document.getElementById('formTitle').style.display='none';
   document.getElementById('formSub').style.display='none';
   document.getElementById('successBox').classList.add('active');
+  if (typeof gtag === 'function') gtag('event', 'eligibility_form_complete', { form_name: 'eligibility' });
   const card = document.querySelector('.hero-card-form'); if (card) card.scrollTop = 0;
 });
 
@@ -2183,6 +2194,7 @@ window.openEligibilityModal = function() {
     modalFormContainer.appendChild(heroFormCard);
   }
   if (modalOverlay) modalOverlay.classList.add('active');
+  if (typeof gtag === 'function') gtag('event', 'eligibility_modal_open');
   try { if (window.lenis) window.lenis.stop(); } catch(e) {}
   document.body.style.overflow = 'hidden'; 
 };
@@ -2295,6 +2307,24 @@ window.switchFaqTab = function(evt, paneId) {
     }
   });
 })();
+</script>
+<script>
+// ---------- Analytics: click tracking (no personal data is sent) ----------
+document.addEventListener('click', function (e) {
+  if (typeof gtag !== 'function') return;
+  const a = e.target.closest('a[href]');
+  if (a) {
+    const href = a.getAttribute('href') || '';
+    if (href.indexOf('wa.me') > -1) gtag('event', 'click_whatsapp', { link_location: a.classList.contains('whatsapp-float') ? 'floating_button' : 'page' });
+    else if (href.indexOf('tel:') === 0) gtag('event', 'click_phone');
+    else if (href.indexOf('mailto:') === 0) gtag('event', 'click_email');
+  }
+  const card = e.target.closest('.path-card');
+  if (card) {
+    const h = card.querySelector('h3');
+    gtag('event', 'view_visa_path', { path_name: h ? h.textContent.trim() : 'unknown' });
+  }
+});
 </script>
 </body>
 </html>

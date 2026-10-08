@@ -923,7 +923,24 @@
   .modal-close-btn { position: absolute; top: -16px; right: -16px; background: rgba(10, 25, 48, 0.9); border: 1px solid rgba(255,255,255,0.2); color: var(--white); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; z-index: 10; transition: background 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .modal-close-btn:hover { background: rgba(255,255,255,0.2); }
   .eligibility-modal-overlay .hero-card-form { max-height: 85vh; box-shadow: 0 40px 100px rgba(0,0,0,0.8); margin: 0; }
-  @media (max-width: 768px) { .eligibility-modal-overlay { padding: 16px; } .eligibility-modal-overlay .hero-card-form { padding: 24px; max-height: 80vh; max-height: 80dvh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; } .modal-close-btn { top: -10px; right: -10px; width: 36px; height: 36px; font-size: 16px; } }
+  .eligibility-modal-content { margin: auto; }
+  @media (max-width: 768px) {
+    .eligibility-modal-overlay { padding: 52px 12px 24px; align-items: flex-start; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; touch-action: pan-y; }
+    .eligibility-modal-overlay .hero-card-form { padding: 18px 16px; max-height: none; overflow: visible; border-radius: 12px; }
+    .modal-close-btn { top: -42px; right: 0; width: 36px; height: 36px; font-size: 16px; }
+    .eligibility-modal-overlay .hero-card-header { margin-bottom: 12px; }
+    .eligibility-modal-overlay .hero-card-header h3 { font-size: 19px; margin-bottom: 4px; }
+    .eligibility-modal-overlay .hero-card-header p { font-size: 12.5px; }
+    .eligibility-modal-overlay .steps-track { margin-top: 10px; margin-bottom: 14px; }
+    .eligibility-modal-overlay .field { margin-bottom: 10px; }
+    .eligibility-modal-overlay .field label { font-size: 10.5px; margin-bottom: 4px; }
+    .eligibility-modal-overlay .field input, .eligibility-modal-overlay .field select, .eligibility-modal-overlay .field textarea { padding: 10px 12px; font-size: 16px; }
+    .eligibility-modal-overlay .f-grid { gap: 0 10px; }
+    .eligibility-modal-overlay .cat-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .eligibility-modal-overlay .cat-option { padding: 10px 6px; font-size: 12px; }
+    .eligibility-modal-overlay .f-nav { margin-top: 12px; }
+    .eligibility-modal-overlay .consent-row { font-size: 11.5px; }
+  }
 
   /* ---------- FOOTER (Frosted Parallax) ---------- */
   footer{ background:rgba(7,18,36,0.90); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding:60px 0 30px; color:rgba(255,255,255,0.55); }
@@ -1864,7 +1881,7 @@
   </div>
 </div>
 
-<div class="eligibility-modal-overlay" id="eligModalOverlay">
+<div class="eligibility-modal-overlay" id="eligModalOverlay" data-lenis-prevent>
   <div class="eligibility-modal-content">
     <button class="modal-close-btn" onclick="closeEligibilityModal()">✕</button>
     <div id="modalFormContainer"></div>

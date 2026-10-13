@@ -743,6 +743,47 @@
   @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; } }
   @media (max-width: 600px) { .team-grid { grid-template-columns: 1fr; } }
 
+  /* ---------- TEAM SHOWCASE: featured card on the left, click another to swap ---------- */
+  .team-grid.team-showcase { grid-template-columns: 1.35fr 1fr 1fr; gap: 28px; align-items: stretch; }
+  .team-showcase .team-card { cursor: pointer; }
+  .team-showcase .team-card:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 12px; }
+  .team-showcase .team-card.is-featured { cursor: default; grid-column: 1; grid-row: 1 / span 2; display: flex; flex-direction: column; scroll-margin-top: 110px; }
+  .team-showcase .team-photo-wrap { position: relative; aspect-ratio: 1 / 1; margin-bottom: 16px; transition: border-color .3s ease; }
+  .team-showcase .team-photo-wrap img { object-position: center top; }
+  .team-showcase .team-card.is-featured .team-photo-wrap { flex: 1 1 auto; aspect-ratio: auto; min-height: 320px; margin-bottom: 26px; border-color: var(--gold); }
+  .team-showcase .team-card.is-featured .team-photo-wrap img { position: absolute; inset: 0; }
+  .team-showcase .team-card h3 { font-size: 17px; }
+  .team-showcase .team-card .team-title { font-size: 11.5px; margin-bottom: 0; }
+  .team-showcase .team-card p { display: none; }
+  .team-showcase .team-card.is-featured h3 { font-size: 28px; margin-bottom: 6px; }
+  .team-showcase .team-card.is-featured .team-title { font-size: 12.5px; margin-bottom: 16px; }
+  .team-showcase .team-card.is-featured p { display: block; font-size: 15.5px; }
+  /* "+" badge on the selectable cards */
+  .team-showcase .team-card:not(.is-featured) .team-photo-wrap::after {
+    content: "+"; position: absolute; right: 12px; bottom: 12px; width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; line-height: 1; font-size: 20px;
+    background: rgba(10,25,48,0.85); color: var(--gold-light); pointer-events: none;
+    transition: transform .4s cubic-bezier(.16,1,.3,1), background .3s ease, color .3s ease;
+  }
+  .team-showcase .team-card:not(.is-featured):hover .team-photo-wrap { border-color: var(--gold); }
+  .team-showcase .team-card:not(.is-featured):hover .team-photo-wrap::after { transform: rotate(90deg) scale(1.1); background: var(--gold); color: var(--navy-deep); }
+  @media (max-width: 900px) {
+    .team-grid.team-showcase { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .team-showcase .team-card.is-featured { grid-column: 1 / -1; grid-row: auto; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1fr); grid-template-rows: 1fr auto auto auto 1fr; column-gap: 32px; }
+    .team-showcase .team-card.is-featured .team-photo-wrap { grid-column: 1; grid-row: 1 / -1; align-self: start; aspect-ratio: 4 / 5; min-height: 0; margin-bottom: 0; }
+    .team-showcase .team-card.is-featured h3 { grid-column: 2; grid-row: 2; }
+    .team-showcase .team-card.is-featured .team-title { grid-column: 2; grid-row: 3; }
+    .team-showcase .team-card.is-featured p { grid-column: 2; grid-row: 4; }
+  }
+  @media (max-width: 600px) {
+    .team-grid.team-showcase { gap: 16px; }
+    .team-showcase .team-card.is-featured { display: flex; flex-direction: column; margin-bottom: 20px; }
+    .team-showcase .team-card.is-featured .team-photo-wrap { flex: none; margin-bottom: 20px; }
+    .team-showcase .team-card.is-featured h3 { font-size: 24px; }
+    .team-showcase .team-card:not(.is-featured) h3 { font-size: 15px; }
+    .team-showcase .team-card:not(.is-featured) .team-title { font-size: 10px; letter-spacing: 0.03em; }
+  }
+
 /* ---------- DUAL CSS MARQUEE GALLERY ---------- */
 .gallery-section { padding-bottom: 80px; overflow: hidden;
   /* Perf: no animated gradient or backdrop blur behind a moving marquee (forces a full repaint + re-blur every frame) */
@@ -1737,8 +1778,8 @@
         <p class="lede">Your application is handled entirely in-house by dedicated specialists with deep roots in UAE corporate compliance and immigration.</p>
       </div>
       
-      <div class="team-grid fade-up delay-1">
-        <div class="team-card">
+      <div class="team-grid team-showcase fade-up delay-1">
+        <div class="team-card is-featured">
           <div class="team-photo-wrap"><img src="assets/kinga.png" alt="Kinga Judit Szabo"></div>
           <h3>Kinga Judit Szabo</h3>
           <div class="team-title">CEO & Founder</div>
@@ -1757,6 +1798,20 @@
           <h3>Yousuf Mir</h3>
           <div class="team-title">Government Liaison</div>
           <p>With more than 20 years extensive experience in government procedures and business consulting, Yousuf Mir helps clients navigate UAE government procedures efficiently, ensuring a smooth and seamless setup experience.</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo-wrap"><img src="assets/leah.png" alt="Leah Camacho"></div>
+          <h3>Leah Camacho</h3>
+          <div class="team-title">Office Manager</div>
+          <p>As Office Manager, Leah oversees daily operations and keeps teams, processes, and priorities organized. By handling the coordination behind the scenes, she helps each department stay focused on its goals and deliver great service.</p>
+        </div>
+
+        <div class="team-card">
+          <div class="team-photo-wrap"><img src="assets/christine.png" alt="Christine Da Silva"></div>
+          <h3>Christine Da Silva</h3>
+          <div class="team-title">Customer Relationship Manager</div>
+          <p>Christine Da Silva is your main point of contact after onboarding, keeping you informed at every stage, answering your questions, and making sure your experience with us is clear and stress-free.</p>
         </div>
       </div>
     </div>
@@ -2090,6 +2145,71 @@ try {
 } catch (e) {
   console.log("VanillaTilt not loaded");
 }
+
+// ---------- Team showcase: select a card to feature it ----------
+(function () {
+  const grid = document.querySelector('.team-showcase');
+  if (!grid) return;
+  const nameOf = c => (c.querySelector('h3') || {}).textContent || 'team member';
+  const sync = () => {
+    grid.querySelectorAll('.team-card').forEach(c => {
+      if (c.classList.contains('is-featured')) {
+        c.removeAttribute('role'); c.removeAttribute('tabindex'); c.removeAttribute('aria-label');
+      } else {
+        c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0');
+        c.setAttribute('aria-label', 'Feature ' + nameOf(c));
+      }
+    });
+  };
+  sync();
+
+  const move = (current, card) => {
+    const marker = document.createComment('');
+    card.before(marker);
+    current.before(card);
+    marker.replaceWith(current);
+    current.classList.remove('is-featured');
+    card.classList.add('is-featured');
+    sync();
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      const r = card.getBoundingClientRect();
+      if (r.top < 90 || r.bottom > window.innerHeight) {
+        if (window.lenis) window.lenis.scrollTo(card, { offset: -110 });
+        else card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
+  let busy = false;
+  const swap = async (card) => {
+    const current = grid.querySelector('.team-card.is-featured');
+    if (busy || !card || !current || card === current) return;
+    busy = true;
+    if (prefersReducedMotion || !card.animate) { move(current, card); busy = false; return; }
+    const outs = [current, card].map(el => el.animate(
+      [{ opacity: 1, translate: '0 0' }, { opacity: 0, translate: '0 -12px' }],
+      { duration: 220, easing: 'ease-in', fill: 'forwards' }
+    ));
+    await Promise.all(outs.map(a => a.finished.catch(() => {})));
+    move(current, card);
+    outs.forEach(a => a.cancel());
+    [current, card].forEach(el => el.animate(
+      [{ opacity: 0, translate: '0 18px' }, { opacity: 1, translate: '0 0' }],
+      { duration: 600, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
+    ));
+    busy = false;
+  };
+
+  grid.addEventListener('click', e => {
+    const card = e.target.closest('.team-card');
+    if (card && !card.classList.contains('is-featured')) swap(card);
+  });
+  grid.addEventListener('keydown', e => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.team-card');
+    if (card && card === e.target && !card.classList.contains('is-featured')) { e.preventDefault(); swap(card); }
+  });
+})();
 
 // ---------- Country & Nationality Select Loader ----------
 const countries = ["Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo","Costa Rica","Croatia","Cuba","Cyprus","Czechia","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"];

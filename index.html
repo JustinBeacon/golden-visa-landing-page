@@ -1178,6 +1178,36 @@
 @keyframes gvShine{0%{background-position:100% 0}60%,100%{background-position:-50% 0}}
 @media (prefers-reduced-motion:reduce){.gv-shine{animation:none;background-position:30% 0;}}
 </style>
+<style>
+/* ---------- Language switcher ---------- */
+.nav-right{display:flex;align-items:center;gap:12px;}
+.lang-switch{position:relative;}
+.lang-btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 12px;background:rgba(255,255,255,0.06);border:1px solid var(--line);border-radius:2px;color:rgba(255,255,255,0.88);font:600 12px/1 'Montserrat',sans-serif;letter-spacing:0.06em;cursor:pointer;transition:border-color .2s ease,color .2s ease,background .2s ease;}
+.lang-btn:hover,.lang-btn[aria-expanded="true"]{border-color:var(--gold-light);color:var(--gold-light);background:rgba(217,190,134,0.08);}
+.lang-btn svg{width:16px;height:16px;flex-shrink:0;}
+.lang-btn .lang-chev{width:10px;height:10px;transition:transform .2s ease;}
+.lang-btn[aria-expanded="true"] .lang-chev{transform:rotate(180deg);}
+.lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:176px;margin:0;padding:6px;list-style:none;background:rgba(10,25,48,0.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:4px;box-shadow:0 14px 40px rgba(0,0,0,0.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease,visibility .18s;}
+.lang-menu.open{opacity:1;visibility:visible;transform:none;}
+.lang-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;background:none;border:0;border-radius:3px;color:rgba(255,255,255,0.8);font:500 14px 'Montserrat','Segoe UI',Tahoma,sans-serif;cursor:pointer;text-align:left;}
+.lang-menu button:hover,.lang-menu button:focus-visible{background:rgba(217,190,134,0.12);color:var(--gold-light);outline:none;}
+.lang-menu button[aria-current="true"]{color:var(--gold-light);}
+.lang-menu button[aria-current="true"]::after{content:"\2713";font-size:13px;}
+@media (max-width:480px){
+  .nav-right{gap:8px;}
+  .lang-btn{height:36px;padding:0 9px;gap:5px;}
+  .lang-btn .lang-chev{display:none;}
+  .brand{min-width:0;}
+}
+@media (max-width:380px){ .brand-name{font-size:13.5px;} .brand .mark{width:22px;height:22px;} .nav-cta{padding:10px 11px;} }
+
+/* ---------- Hide Google Translate's own UI (we use our own button) ---------- */
+#google_translate_element{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;}
+body > .skiptranslate, .goog-te-banner-frame, iframe.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-tooltip, .goog-te-spinner-pos{display:none !important;}
+body{top:0 !important;}
+.goog-text-highlight{background:none !important;box-shadow:none !important;}
+font{background:none !important;box-shadow:none !important;}
+</style>
 </head>
 <body>
 
@@ -1186,8 +1216,8 @@
     <div class="brand">
       <svg class="mark" viewBox="0 0 26 26" fill="none"><path d="M13 1L15.5 9.5L24 12L15.5 14.5L13 23L10.5 14.5L2 12L10.5 9.5L13 1Z" fill="url(#g1)"/><defs><linearGradient id="g1" x1="2" y1="1" x2="24" y2="23"><stop stop-color="#D9BE86"/><stop offset="1" stop-color="#B8934A"/></linearGradient></defs></svg>
       <span class="brand-text">
-        <span class="brand-name">Golden Visa For You</span>
-        <span class="brand-sub">powered by <b>Beacon UAE</b></span>
+        <span class="brand-name" translate="no">Golden Visa For You</span>
+        <span class="brand-sub">powered by <b translate="no">Beacon UAE</b></span>
       </span>
     </div>
     <nav class="links">
@@ -1197,7 +1227,22 @@
       <a href="#why-choose-us">Why Us</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <button class="nav-cta" onclick="openEligibilityModal()">Check<span class="hide-sm"> My</span> Eligibility</button>
+    <div class="nav-right">
+      <div class="lang-switch notranslate" translate="no">
+        <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="Change language">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.7 4 6 4 9.5s-1.4 6.8-4 9.5c-2.6-2.7-4-6-4-9.5s1.4-6.8 4-9.5z"/></svg>
+          <span id="langCode">EN</span>
+          <svg class="lang-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
+        </button>
+        <ul class="lang-menu" id="langMenu" role="menu">
+          <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en">English</button></li>
+          <li role="none"><button type="button" role="menuitem" data-lang="hu" lang="hu">Magyar</button></li>
+          <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es">Español</button></li>
+          <li role="none"><button type="button" role="menuitem" data-lang="fr" lang="fr">Français</button></li>
+        </ul>
+      </div>
+      <button class="nav-cta" onclick="openEligibilityModal()">Check<span class="hide-sm"> My</span> Eligibility</button>
+    </div>
   </div>
 </header>
 
@@ -2591,6 +2636,96 @@ document.addEventListener('click', function (e) {
     gtag('event', 'view_visa_path', { path_name: h ? h.textContent.trim() : 'unknown' });
   }
 });
+</script>
+<div id="google_translate_element" class="notranslate" translate="no"></div>
+<script>
+// ---------- Page translation (Google Website Translator, loaded only when a visitor picks a language) ----------
+(function () {
+  // Give every <option> an explicit value so form leads stay in English even when the page is translated
+  document.querySelectorAll('select option:not([value])').forEach(function (o) { o.value = o.textContent.trim(); });
+
+  var btn = document.getElementById('langBtn');
+  var menu = document.getElementById('langMenu');
+  var codeEl = document.getElementById('langCode');
+  if (!btn || !menu) return;
+
+  var current = 'en', loaded = false, pending = null;
+
+  function store(v) { try { localStorage.setItem('gv_lang', v); } catch (e) {} }
+  function stored() { try { return localStorage.getItem('gv_lang'); } catch (e) { return null; } }
+
+  function mark(lang) {
+    current = lang;
+    codeEl.textContent = lang.toUpperCase();
+    menu.querySelectorAll('button').forEach(function (b) {
+      if (b.dataset.lang === lang) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current');
+    });
+  }
+
+  function applyLang(lang) {
+    var combo = document.querySelector('select.goog-te-combo');
+    if (!combo) return false;
+    combo.value = (lang === 'en') ? '' : lang;
+    combo.dispatchEvent(new Event('change'));
+    return true;
+  }
+
+  function waitForCombo() {
+    var tries = 0;
+    var t = setInterval(function () {
+      tries++;
+      if (pending && applyLang(pending)) { pending = null; clearInterval(t); }
+      else if (tries > 80) { clearInterval(t); }
+    }, 100);
+  }
+
+  window.googleTranslateElementInit = function () {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'hu,es,fr',
+      autoDisplay: false
+    }, 'google_translate_element');
+    waitForCombo();
+  };
+
+  function loadWidget() {
+    if (loaded) return;
+    loaded = true;
+    var s = document.createElement('script');
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
+  function setLang(lang, fromUser) {
+    mark(lang);
+    store(lang);
+    if (lang === 'en' && !loaded) { return; }          // page is already original English
+    if (!loaded) { pending = lang; loadWidget(); }
+    else if (!applyLang(lang)) { pending = lang; waitForCombo(); }
+    if (fromUser && typeof gtag === 'function') gtag('event', 'language_change', { language: lang });
+  }
+
+  function closeMenu() { menu.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  function openMenu() { menu.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  menu.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-lang]');
+    if (!b) return;
+    closeMenu();
+    if (b.dataset.lang !== current) setLang(b.dataset.lang, true);
+  });
+  document.addEventListener('click', function (e) { if (!menu.contains(e.target)) closeMenu(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+
+  // Remember the visitor's choice
+  var saved = stored();
+  if (saved && saved !== 'en' && menu.querySelector('[data-lang="' + saved + '"]')) setLang(saved, false);
+})();
 </script>
 </body>
 </html>

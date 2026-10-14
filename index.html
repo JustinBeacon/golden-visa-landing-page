@@ -1179,27 +1179,27 @@
 @media (prefers-reduced-motion:reduce){.gv-shine{animation:none;background-position:30% 0;}}
 </style>
 <style>
-/* ---------- Language switcher ---------- */
-.nav-right{display:flex;align-items:center;gap:12px;}
-.lang-switch{position:relative;}
-.lang-btn{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 12px;background:rgba(255,255,255,0.06);border:1px solid var(--line);border-radius:2px;color:rgba(255,255,255,0.88);font:600 12px/1 'Montserrat',sans-serif;letter-spacing:0.06em;cursor:pointer;transition:border-color .2s ease,color .2s ease,background .2s ease;}
-.lang-btn:hover,.lang-btn[aria-expanded="true"]{border-color:var(--gold-light);color:var(--gold-light);background:rgba(217,190,134,0.08);}
-.lang-btn svg{width:16px;height:16px;flex-shrink:0;}
-.lang-btn .lang-chev{width:10px;height:10px;transition:transform .2s ease;}
-.lang-btn[aria-expanded="true"] .lang-chev{transform:rotate(180deg);}
-.lang-menu{position:absolute;top:calc(100% + 8px);right:0;min-width:176px;margin:0;padding:6px;list-style:none;background:rgba(10,25,48,0.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:4px;box-shadow:0 14px 40px rgba(0,0,0,0.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .18s ease,transform .18s ease,visibility .18s;}
+/* ---------- Floating language widget (sits above the WhatsApp button) ---------- */
+.lang-widget{position:fixed;right:32px;bottom:106px;z-index:1000;}
+.lang-fab{position:relative;width:60px;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;border-radius:50%;cursor:pointer;color:var(--gold-light);background:radial-gradient(circle at 30% 22%,#21426e 0%,var(--navy-deep) 72%);border:1.5px solid rgba(217,190,134,0.55);box-shadow:0 8px 24px rgba(10,25,48,0.45),inset 0 1px 0 rgba(255,255,255,0.14);transition:transform .3s cubic-bezier(0.16,1,0.3,1),box-shadow .3s ease,border-color .3s ease;}
+.lang-fab:hover,.lang-fab[aria-expanded="true"]{transform:translateY(-4px) scale(1.05);border-color:var(--gold-light);box-shadow:0 12px 28px rgba(10,25,48,0.55),0 0 22px rgba(217,190,134,0.38),inset 0 1px 0 rgba(255,255,255,0.14);}
+.lang-fab:focus-visible{outline:2px solid var(--gold-light);outline-offset:3px;}
+.lang-fab svg{width:22px;height:22px;flex-shrink:0;}
+.lang-fab .lang-code{font:700 9.5px/1 'Montserrat',sans-serif;letter-spacing:0.12em;color:rgba(255,255,255,0.9);}
+.lang-menu{position:absolute;right:0;bottom:calc(100% + 14px);min-width:196px;margin:0;padding:8px;list-style:none;background:rgba(10,25,48,0.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,0.5);opacity:0;visibility:hidden;transform:translateY(8px) scale(0.96);transform-origin:bottom right;transition:opacity .2s ease,transform .25s cubic-bezier(0.16,1,0.3,1),visibility .2s;}
 .lang-menu.open{opacity:1;visibility:visible;transform:none;}
-.lang-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;background:none;border:0;border-radius:3px;color:rgba(255,255,255,0.8);font:500 14px 'Montserrat','Segoe UI',Tahoma,sans-serif;cursor:pointer;text-align:left;}
+.lang-menu::after{content:"";position:absolute;right:22px;bottom:-6px;width:12px;height:12px;background:rgba(10,25,48,0.97);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg);}
+.lang-menu button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:14px;padding:11px 12px;background:none;border:0;border-radius:9px;color:rgba(255,255,255,0.82);font:500 14px 'Montserrat',sans-serif;cursor:pointer;text-align:left;transition:background .15s ease,color .15s ease;}
+.lang-menu button em{font-style:normal;font-size:10px;font-weight:700;letter-spacing:0.1em;padding:4px 7px;border-radius:5px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6);transition:background .15s ease,color .15s ease;}
 .lang-menu button:hover,.lang-menu button:focus-visible{background:rgba(217,190,134,0.12);color:var(--gold-light);outline:none;}
-.lang-menu button[aria-current="true"]{color:var(--gold-light);}
-.lang-menu button[aria-current="true"]::after{content:"\2713";font-size:13px;}
-@media (max-width:480px){
-  .nav-right{gap:8px;}
-  .lang-btn{height:36px;padding:0 9px;gap:5px;}
-  .lang-btn .lang-chev{display:none;}
-  .brand{min-width:0;}
+.lang-menu button[aria-current="true"]{color:var(--gold-light);font-weight:700;}
+.lang-menu button[aria-current="true"] em{background:linear-gradient(135deg,var(--gold-light),var(--gold));color:var(--navy-deep);}
+@media (max-width:768px){
+  .lang-widget{right:20px;bottom:84px;}
+  .lang-fab{width:52px;height:52px;gap:3px;}
+  .lang-fab svg{width:20px;height:20px;}
+  .lang-menu{min-width:180px;}
 }
-@media (max-width:380px){ .brand-name{font-size:13.5px;} .brand .mark{width:22px;height:22px;} .nav-cta{padding:10px 11px;} }
 
 /* ---------- Hide Google Translate's own UI (we use our own button) ---------- */
 #google_translate_element{position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;}
@@ -1227,22 +1227,7 @@ font{background:none !important;box-shadow:none !important;}
       <a href="#why-choose-us">Why Us</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <div class="nav-right">
-      <div class="lang-switch notranslate" translate="no">
-        <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="Change language">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.7 4 6 4 9.5s-1.4 6.8-4 9.5c-2.6-2.7-4-6-4-9.5s1.4-6.8 4-9.5z"/></svg>
-          <span id="langCode">EN</span>
-          <svg class="lang-chev" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5L6 8l3.5-3.5"/></svg>
-        </button>
-        <ul class="lang-menu" id="langMenu" role="menu">
-          <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en">English</button></li>
-          <li role="none"><button type="button" role="menuitem" data-lang="hu" lang="hu">Magyar</button></li>
-          <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es">Español</button></li>
-          <li role="none"><button type="button" role="menuitem" data-lang="fr" lang="fr">Français</button></li>
-        </ul>
-      </div>
-      <button class="nav-cta" onclick="openEligibilityModal()">Check<span class="hide-sm"> My</span> Eligibility</button>
-    </div>
+    <button class="nav-cta" onclick="openEligibilityModal()">Check<span class="hide-sm"> My</span> Eligibility</button>
   </div>
 </header>
 
@@ -2637,6 +2622,18 @@ document.addEventListener('click', function (e) {
   }
 });
 </script>
+<div class="lang-widget notranslate" translate="no">
+  <ul class="lang-menu" id="langMenu" role="menu" aria-label="Choose language">
+    <li role="none"><button type="button" role="menuitem" data-lang="en" lang="en">English<em>EN</em></button></li>
+    <li role="none"><button type="button" role="menuitem" data-lang="hu" lang="hu">Magyar<em>HU</em></button></li>
+    <li role="none"><button type="button" role="menuitem" data-lang="es" lang="es">Español<em>ES</em></button></li>
+    <li role="none"><button type="button" role="menuitem" data-lang="fr" lang="fr">Français<em>FR</em></button></li>
+  </ul>
+  <button type="button" class="lang-fab" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="Change language" title="Language">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19"/><path d="M12 2.5c2.6 2.7 4 6 4 9.5s-1.4 6.8-4 9.5c-2.6-2.7-4-6-4-9.5s1.4-6.8 4-9.5z"/></svg>
+    <span class="lang-code" id="langCode">EN</span>
+  </button>
+</div>
 <div id="google_translate_element" class="notranslate" translate="no"></div>
 <script>
 // ---------- Page translation (Google Website Translator, loaded only when a visitor picks a language) ----------
